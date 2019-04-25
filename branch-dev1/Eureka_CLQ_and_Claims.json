@@ -1,0 +1,573 @@
+{
+  "workflow": {
+    "nodes": [{
+      "id": "2f3e7aef-1501-b5ad-8704-3af33e0eddc3",
+      "operation": {
+        "id": "d273c42f-b840-4402-ba6b-18282cc25000",
+        "name": "Get CLQ Data Source"
+      },
+      "parameters": {
+        "CLQ Data Source": {
+          "redshift": {
+
+          }
+        },
+        "Data Source Schema": "concerto_dev",
+        "sample size": 200.0
+      }
+    }, {
+      "id": "9acb5a66-b96f-1da0-b622-a516d6f47550",
+      "operation": {
+        "id": "d273c42f-b840-4402-ba6b-18282cc12000",
+        "name": "MakeDXs"
+      },
+      "parameters": {
+
+      }
+    }, {
+      "id": "7a464099-5145-7290-b208-eca4e684de73",
+      "operation": {
+        "id": "d62abcbf-1540-4d58-8396-a92b01745000",
+        "name": "Vectorize"
+      },
+      "parameters": {
+        "input columns": {
+          "selections": [{
+            "type": "columnList",
+            "values": ["diagnosiscode_code"]
+          }],
+          "excluding": false
+        },
+        "output column": "diagnosiscode_code"
+      }
+    }, {
+      "id": "afda3a94-9228-5376-eed4-689448b608ae",
+      "operation": {
+        "id": "d62abcbf-1540-4d58-8396-a92b01745550",
+        "name": "XGBoost"
+      },
+      "parameters": {
+
+      }
+    }, {
+      "id": "2a6604ef-88ca-d954-4c20-d9d93b1f28d5",
+      "operation": {
+        "id": "d62abcbf-1540-4d58-8396-a92b01749990",
+        "name": "Model Prediction"
+      },
+      "parameters": {
+        "Combiner columns": [{
+          "left column": {
+            "type": "column",
+            "value": "fgfg"
+          },
+          "right column": {
+            "type": "column",
+            "value": "fgrt"
+          }
+        }]
+      }
+    }, {
+      "id": "fc361355-ae7d-b5e4-6936-298890d6ef23",
+      "operation": {
+        "id": "d273c42f-b840-4402-ba6b-18282cc13400",
+        "name": "AgeAtDX"
+      },
+      "parameters": {
+
+      }
+    }, {
+      "id": "f106a260-4009-eb2f-fb52-e5d52831d428",
+      "operation": {
+        "id": "d273c42f-b840-4402-ba6b-18282cc13300",
+        "name": "Year of Death"
+      },
+      "parameters": {
+
+      }
+    }, {
+      "id": "24cc477f-f5e1-b790-bf47-231e55e12091",
+      "operation": {
+        "id": "06374446-3138-4cf7-9682-f884990f6770",
+        "name": "Feature Integration"
+      },
+      "parameters": {
+        "Combiner columns": [{
+          "left column": {
+            "type": "column",
+            "value": "diagnosiscode_code"
+          },
+          "right column": {
+            "type": "column",
+            "value": "diagnosiscode_code"
+          }
+        }]
+      }
+    }, {
+      "id": "e66c85b8-f9ed-91fd-bc93-17a5f53089f5",
+      "operation": {
+        "id": "d273c42f-b840-4402-ba6b-18282cc11000",
+        "name": "Cohort Split"
+      },
+      "parameters": {
+
+      }
+    }, {
+      "id": "9b871e4c-bc49-c235-4da8-e1de98f1a6ba",
+      "operation": {
+        "id": "d62abcbf-1540-4d58-8396-a92b01795000",
+        "name": "Generate Matrices"
+      },
+      "parameters": {
+        "Y-Matrix selection": {
+          "selections": [{
+            "type": "columnList",
+            "values": ["we", "diagnosiscode_code"]
+          }],
+          "excluding": false
+        }
+      }
+    }, {
+      "id": "3d57f983-25ed-6051-9f9d-244136772758",
+      "operation": {
+        "id": "d273c42f-b840-4402-ba6b-18282cc26600",
+        "name": "Select Cohort"
+      },
+      "parameters": {
+
+      }
+    }, {
+      "id": "465520dd-8eb7-165e-c2b1-1272e5ba4848",
+      "operation": {
+        "id": "d273c42f-b840-4402-ba6b-18282cc25500",
+        "name": "Get Claim Data Source"
+      },
+      "parameters": {
+
+      }
+    }, {
+      "id": "7394e700-160f-d88b-a8be-e2a1ab54554e",
+      "operation": {
+        "id": "d62abcbf-1540-4d58-8396-a92b01749980",
+        "name": "Model Training"
+      },
+      "parameters": {
+
+      }
+    }, {
+      "id": "6666cf7c-9242-4972-be5b-cc1a5e902d36",
+      "operation": {
+        "id": "06374446-3138-4cf7-9682-f884990f6700",
+        "name": "Combine"
+      },
+      "parameters": {
+        "Combiner type": {
+          "Right outer": {
+
+          }
+        },
+        "Combiner columns": [{
+          "left column": {
+            "type": "column",
+            "value": "chai_patient_id"
+          },
+          "right column": {
+            "type": "column",
+            "value": "chai_patient_id"
+          }
+        }]
+      }
+    }, {
+      "id": "0fc36ae5-e9c3-2c7f-2b93-933e906ba6cc",
+      "operation": {
+        "id": "d273c42f-b840-4402-ba6b-18282cc15000",
+        "name": "MakePhys"
+      },
+      "parameters": {
+        "CHAI features selection": {
+          "selections": [{
+            "type": "columnList",
+            "values": ["phy_code"]
+          }],
+          "excluding": false
+        }
+      }
+    }, {
+      "id": "fcfc9329-c6e0-c484-0e00-2fc03c6799b1",
+      "operation": {
+        "id": "d62abcbf-1540-4d58-8396-a92b01745000",
+        "name": "Vectorize"
+      },
+      "parameters": {
+        "input columns": {
+          "selections": [{
+            "type": "columnList",
+            "values": ["medicationname_code"]
+          }],
+          "excluding": false
+        },
+        "output column": "medicationname_code"
+      }
+    }, {
+      "id": "bd65938a-d1ea-2a28-349f-1c4375234b2c",
+      "operation": {
+        "id": "06374446-3138-4cf7-9682-f884990f6700",
+        "name": "Combine"
+      },
+      "parameters": {
+        "Combiner type": {
+          "Left outer": {
+
+          }
+        },
+        "Combiner columns": [{
+          "left column": {
+            "type": "column",
+            "value": "chai_patient_id"
+          },
+          "right column": {
+            "type": "column",
+            "value": "chai_patient_id"
+          }
+        }]
+      }
+    }],
+    "connections": [{
+      "from": {
+        "nodeId": "2f3e7aef-1501-b5ad-8704-3af33e0eddc3",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "f106a260-4009-eb2f-fb52-e5d52831d428",
+        "portIndex": 0
+      }
+    }, {
+      "from": {
+        "nodeId": "f106a260-4009-eb2f-fb52-e5d52831d428",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "bd65938a-d1ea-2a28-349f-1c4375234b2c",
+        "portIndex": 0
+      }
+    }, {
+      "from": {
+        "nodeId": "3d57f983-25ed-6051-9f9d-244136772758",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "2f3e7aef-1501-b5ad-8704-3af33e0eddc3",
+        "portIndex": 0
+      }
+    }, {
+      "from": {
+        "nodeId": "fcfc9329-c6e0-c484-0e00-2fc03c6799b1",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "6666cf7c-9242-4972-be5b-cc1a5e902d36",
+        "portIndex": 1
+      }
+    }, {
+      "from": {
+        "nodeId": "bd65938a-d1ea-2a28-349f-1c4375234b2c",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "24cc477f-f5e1-b790-bf47-231e55e12091",
+        "portIndex": 0
+      }
+    }, {
+      "from": {
+        "nodeId": "afda3a94-9228-5376-eed4-689448b608ae",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "2a6604ef-88ca-d954-4c20-d9d93b1f28d5",
+        "portIndex": 1
+      }
+    }, {
+      "from": {
+        "nodeId": "fc361355-ae7d-b5e4-6936-298890d6ef23",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "bd65938a-d1ea-2a28-349f-1c4375234b2c",
+        "portIndex": 1
+      }
+    }, {
+      "from": {
+        "nodeId": "afda3a94-9228-5376-eed4-689448b608ae",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "7394e700-160f-d88b-a8be-e2a1ab54554e",
+        "portIndex": 0
+      }
+    }, {
+      "from": {
+        "nodeId": "2f3e7aef-1501-b5ad-8704-3af33e0eddc3",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "9acb5a66-b96f-1da0-b622-a516d6f47550",
+        "portIndex": 0
+      }
+    }, {
+      "from": {
+        "nodeId": "e66c85b8-f9ed-91fd-bc93-17a5f53089f5",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "afda3a94-9228-5376-eed4-689448b608ae",
+        "portIndex": 0
+      }
+    }, {
+      "from": {
+        "nodeId": "7394e700-160f-d88b-a8be-e2a1ab54554e",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "2a6604ef-88ca-d954-4c20-d9d93b1f28d5",
+        "portIndex": 0
+      }
+    }, {
+      "from": {
+        "nodeId": "9b871e4c-bc49-c235-4da8-e1de98f1a6ba",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "e66c85b8-f9ed-91fd-bc93-17a5f53089f5",
+        "portIndex": 0
+      }
+    }, {
+      "from": {
+        "nodeId": "9acb5a66-b96f-1da0-b622-a516d6f47550",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "7a464099-5145-7290-b208-eca4e684de73",
+        "portIndex": 0
+      }
+    }, {
+      "from": {
+        "nodeId": "6666cf7c-9242-4972-be5b-cc1a5e902d36",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "24cc477f-f5e1-b790-bf47-231e55e12091",
+        "portIndex": 1
+      }
+    }, {
+      "from": {
+        "nodeId": "3d57f983-25ed-6051-9f9d-244136772758",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "465520dd-8eb7-165e-c2b1-1272e5ba4848",
+        "portIndex": 0
+      }
+    }, {
+      "from": {
+        "nodeId": "0fc36ae5-e9c3-2c7f-2b93-933e906ba6cc",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "fcfc9329-c6e0-c484-0e00-2fc03c6799b1",
+        "portIndex": 0
+      }
+    }, {
+      "from": {
+        "nodeId": "24cc477f-f5e1-b790-bf47-231e55e12091",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "9b871e4c-bc49-c235-4da8-e1de98f1a6ba",
+        "portIndex": 0
+      }
+    }, {
+      "from": {
+        "nodeId": "2f3e7aef-1501-b5ad-8704-3af33e0eddc3",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "fc361355-ae7d-b5e4-6936-298890d6ef23",
+        "portIndex": 0
+      }
+    }, {
+      "from": {
+        "nodeId": "7a464099-5145-7290-b208-eca4e684de73",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "6666cf7c-9242-4972-be5b-cc1a5e902d36",
+        "portIndex": 0
+      }
+    }, {
+      "from": {
+        "nodeId": "465520dd-8eb7-165e-c2b1-1272e5ba4848",
+        "portIndex": 0
+      },
+      "to": {
+        "nodeId": "0fc36ae5-e9c3-2c7f-2b93-933e906ba6cc",
+        "portIndex": 0
+      }
+    }]
+  },
+  "thirdPartyData": {
+    "gui": {
+      "name": "Eureka CLQ and Claims",
+      "description": "",
+      "nodes": {
+        "bd65938a-d1ea-2a28-349f-1c4375234b2c": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7113,
+            "y": 8486
+          }
+        },
+        "24cc477f-f5e1-b790-bf47-231e55e12091": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7360,
+            "y": 8689
+          }
+        },
+        "2f3e7aef-1501-b5ad-8704-3af33e0eddc3": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7325,
+            "y": 8195
+          }
+        },
+        "9b871e4c-bc49-c235-4da8-e1de98f1a6ba": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7358,
+            "y": 8808
+          }
+        },
+        "2a6604ef-88ca-d954-4c20-d9d93b1f28d5": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7474,
+            "y": 9249
+          }
+        },
+        "7394e700-160f-d88b-a8be-e2a1ab54554e": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7100,
+            "y": 9190
+          }
+        },
+        "fc361355-ae7d-b5e4-6936-298890d6ef23": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7181,
+            "y": 8333
+          }
+        },
+        "0fc36ae5-e9c3-2c7f-2b93-933e906ba6cc": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7825,
+            "y": 8313
+          }
+        },
+        "3d57f983-25ed-6051-9f9d-244136772758": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7560,
+            "y": 8100
+          }
+        },
+        "afda3a94-9228-5376-eed4-689448b608ae": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7343,
+            "y": 9064
+          }
+        },
+        "6666cf7c-9242-4972-be5b-cc1a5e902d36": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7591,
+            "y": 8582
+          }
+        },
+        "fcfc9329-c6e0-c484-0e00-2fc03c6799b1": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7815,
+            "y": 8465
+          }
+        },
+        "465520dd-8eb7-165e-c2b1-1272e5ba4848": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7828,
+            "y": 8187
+          }
+        },
+        "9acb5a66-b96f-1da0-b622-a516d6f47550": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7402,
+            "y": 8327
+          }
+        },
+        "7a464099-5145-7290-b208-eca4e684de73": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7414,
+            "y": 8468
+          }
+        },
+        "e66c85b8-f9ed-91fd-bc93-17a5f53089f5": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 7349,
+            "y": 8933
+          }
+        },
+        "f106a260-4009-eb2f-fb52-e5d52831d428": {
+          "uiName": "",
+          "color": "#00B1EB",
+          "coordinates": {
+            "x": 6983,
+            "y": 8331
+          }
+        }
+      }
+    },
+    "notebooks": {
+
+    },
+    "datasources": null
+  },
+  "variables": {
+
+  },
+  "id": "5c1d617e-6c87-4120-ab17-52ec2cf118b0",
+  "metadata": {
+    "type": "batch",
+    "apiVersion": "1.4.4"
+  }
+}
