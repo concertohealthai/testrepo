@@ -1,0 +1,25 @@
+VirtualBox - 
+Install VMWare virtual workstation. Vivek al;so has the license
+Welcome Screen - http://localhost:1080
+SSH - http://localhost:4200
+
+VMware - 
+Welcome Screen - http://192.168.150.128:1080
+SSH - http://192.168.150.128:4200
+root / hadoop  -> MROsanlab1
+
+Note - Add 192.168.*.* in IE connection to not use proxy for this address
+
+Login to Ambari - 
+http://192.168.150.128:8080/#/main/dashboard/metrics
+
+raj_ops/raj_ops
+
+
+SSH using Chrome to http://192.168.150.128:4200 - root / MROsanlab1
+
+#spark-shell
+version 2.3.0.2
+scala>
+scala version 2.11.8 Java 1.8.171
+:q is the way to come out of the scala context
