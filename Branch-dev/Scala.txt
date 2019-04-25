@@ -1,0 +1,2 @@
+Scala SDK - 2.12.7
+Play 2 Version - 2.6.19
